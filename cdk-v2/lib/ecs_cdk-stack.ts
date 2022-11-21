@@ -119,7 +119,7 @@ export class EcsCdkStack extends cdk.Stack {
 
     const gitHubSource = codebuild.Source.gitHub({
       owner: tacetnmori,
-      repo: amazon-ecs-fargate-cdk-v2-cicd,
+      repo: githubRepository.valueAsString,
       webhook: true, // optional, default: true if `webhookfilteres` were provided, false otherwise
       webhookFilters: [
         codebuild.FilterGroup.inEventOf(codebuild.EventAction.PUSH).andBranchIs('main'),
@@ -194,7 +194,7 @@ export class EcsCdkStack extends cdk.Stack {
     const sourceAction = new codepipeline_actions.GitHubSourceAction({
       actionName: 'github_source',
       owner: tacetnmori,
-      repo: amazon-ecs-fargate-cdk-v2-cicd,
+      repo: githubRepository.valueAsString,
       branch: 'main',
       oauthToken: cdk.SecretValue.secretsManager(nameOfGithubPersonTokenParameterAsString),
       output: sourceOutput
